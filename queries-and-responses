@@ -1,0 +1,134 @@
+Оновлення даних. Видалення даних
+
+> db.games.replaceOne({title: "Mass Effect"}, {title:"Mass Effect 3", genre:["rpg", "Shooter", "Sci-Fi"], developer:"Bioware", 
+platform:["PC", "Xbox", "PS4", "PS5"], releaseDate:{month:"mar", day: 6, year: 20012}, rating:{metascore:89, userScore: 6.0}})
+
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+> db.games.updateOne({title:"Factorio"}, {$set: {platform: ["PC", "SteamDeck"]}})
+
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+> db.games.updateMany({developer: "From Software"}, {$set: {genre: "souls-like"}})
+
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+> db.games.updateOne({title: "Factorio"}, {$unset: {genre 1}})
+
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+> db.games.find({title: "Factorio"}).pretty()
+{
+        "_id" : ObjectId("6230e0aefbbe665129496a49"),
+        "title" : "Factorio",
+        "developer" : "Wube Software LTD",
+        "platform" : [
+                "PC",
+                "SteamDeck"
+        ],
+        "releaseDate" : {
+                "month" : "aug",
+                "day" : 14,
+                "year" : 2020
+        },
+        "rating" : {
+                "metascore" : 90,
+                "userScore" : 9.1
+        }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+> db.games.updateOne({title: "Portal"}, {$push: {genre: "Arcade"}})
+
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+> db.games.find({title: "Portal"}).pretty()
+
+{
+        "_id" : ObjectId("6230e0aefbbe665129496a4e"),
+        "title" : "Portal",
+        "genre" : [
+                "Shooter",
+                "Arcade",
+                "Sci-Fi",
+                "Arcade"
+        ],
+        "developer" : "Valve Software",
+        "platform" : [
+                "PC",
+                "Xbox"
+        ],
+        "releaseDate" : {
+                "month" : "oct",
+                "day" : 10,
+                "year" : 2007
+        },
+        "rating" : {
+                "metascore" : 90,
+                "userScore" : 9.2
+        }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+> db.games.updateOne({title: "Terraria"}, {$addToSet: {platform: "SteamDeck"}})
+
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+> db.games.updateOne({title: "Terraria"}, {$pop: {platform: 1}})
+
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+> db.games.updateOne({title: "Portal"}, {$pull: {genre: "Sci-Fi"}})
+
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+> db.games.updateOne({title: "Terraria"}, {$pullAll: {platform: ["Xbox", "PS5"]}})
+
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+> db.games.deleteOne({title: "Bloodborne"})
+
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
